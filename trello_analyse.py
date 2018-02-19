@@ -1,5 +1,6 @@
 import sys
 from file_reader import get_json
+import trello_data
 
 args = sys.argv
 
@@ -8,6 +9,7 @@ if len(args) < 2:
     exit("No argument")
 
 json_file = args[1]
-trello_data = get_json(json_file)
+data = get_json(json_file)
 
-print(trello_data)
+#print(trello_data["actions"])
+print(trello_data.get_weektime_stats(data))
