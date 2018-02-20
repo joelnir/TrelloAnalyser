@@ -1,3 +1,5 @@
+import datetime
+
 def get_board_name(data):
     return data["name"]
 
@@ -16,7 +18,12 @@ def get_unique_actions(data):
     return u_act
 
 def get_weekday(date_string):
-    pass
+    year = int(date_string[0:4])
+    month = int(date_string[5:7])
+    day = int(date_string[8:10])
+
+    date = datetime.datetime(year, month, day)
+    return date.weekday();
 
 def get_hour_of_day(date_string):
     return date_string[11:13]
@@ -27,4 +34,4 @@ def get_weektime_stats(data, filter = 0):
     #return actions[0]
     date_times = [action["date"] for action in actions]
 
-    return [get_hour_of_day(date_string)  for date_string in date_times]
+    return [(get_hour_of_day(date_string), get_weekday(date_string)) for date_string in date_times]
