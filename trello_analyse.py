@@ -11,5 +11,4 @@ if len(args) < 2:
 json_file = args[1]
 data = get_json(json_file)
 
-#print(data["actions"])
 print(trello_data.get_weektime_stats(data))

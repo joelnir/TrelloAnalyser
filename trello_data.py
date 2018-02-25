@@ -26,12 +26,18 @@ def get_weekday(date_string):
     return date.weekday();
 
 def get_hour_of_day(date_string):
-    return date_string[11:13]
+    return int(date_string[11:13])
 
-def get_weektime_stats(data, filter = 0):
+def get_weektime_stats(data, filter = (lambda x: True)):
     actions = data["actions"]
 
-    #return actions[0]
-    date_times = [action["date"] for action in actions]
+    date_times = [action["date"] for action in actions if filter(action)]
 
-    return [(get_hour_of_day(date_string), get_weekday(date_string)) for date_string in date_times]
+    event_list = [(get_hour_of_day(date_string), get_weekday(date_string)) for date_string in date_times]
+
+    week = [[0 for j in range(24)] for i in range(7)]
+
+    for event in event_list:
+        week[event[1]][event[0]] += 1
+
+    return week
